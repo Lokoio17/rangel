@@ -10,8 +10,8 @@
 
     <div id="result">
       <p class="type">Resultado: {{ result }}</p>
-      <p>{{ gameResult }}</p>
-      <p v-if="gameResult === 'Você venceu!'">Número escolhido pela máquina: {{ machineNumber }}</p>
+      <p id="winner">{{ gameResult }}</p>
+      <p v-if="gameResult">Número escolhido pela máquina: {{ machineNumber }}</p>
       <p v-if="errorMessage">{{ errorMessage }}</p>
     </div>
   </div>
@@ -39,31 +39,32 @@ export default {
     },
     playGame() {
       if (this.playerNumber < 1 || this.playerNumber > 6) {
-        this.errorMessage = 'Escolha um número entre 1 e 6.';
-        this.clearResult();
-        return;
-      }
-
-      this.errorMessage = '';
-      this.machineNumber = this.generateMachineNumber();
-      const total = this.playerNumber + this.machineNumber;
-      const isEven = total % 2 === 0;
-
-      if (isEven) {
-        this.result = 'Par';
-      } else {
-        this.result = 'Ímpar';
-      }
-
-      if (
-        (isEven && this.playerNumber % 2 === 0) ||
-        (!isEven && this.playerNumber % 2 !== 0)
-      ) {
-        this.gameResult = 'Você venceu!';
-      } else {
-        this.gameResult = 'Você perdeu!';
-      }
-    }
+    this.errorMessage = 'Escolha um número entre 1 e 6.';
+    this.clearResult();
+    return;
   }
-}
+
+  this.errorMessage = '';
+
+  const machineNumber = this.generateMachineNumber();
+  const total = this.playerNumber + machineNumber;
+  const isEven = total % 2 === 0;
+
+  if (isEven) {
+    this.result = 'Par';
+  } else {
+    this.result = 'Ímpar';
+  }
+
+  if (
+    (isEven && this.playerNumber % 2 === 0) || 
+    (!isEven && this.playerNumber % 2 !== 0)
+  ) {
+    this.gameResult = 'Você venceu!';
+  } else {
+    this.gameResult = 'Você perdeu!';
+  }
+
+  this.machineNumber = machineNumber;
+}}}
 </script>

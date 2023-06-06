@@ -75,9 +75,10 @@ button:focus-visible {
   margin-left: 15px;
 
 }
-#result{
-  
-}
 .type{
-  font-size: 2em;
+  font-size: 1.3em;
+}
+#winner{
+  font-size: 1.3em;
+  font-weight: bolder;
 }
