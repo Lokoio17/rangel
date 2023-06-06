@@ -1,14 +1,15 @@
 <template>
   <div>
     <h1>Jogo Ímpar ou Par</h1>
-
-    <label for="playerInput">Escolha um número de 1 a 6:</label>
-    <input type="number" id="playerInput" v-model="playerNumber" min="1" max="6">
+    <div id="choice">
+      <label for="playerInput">Escolha um número de 1 a 6:</label>
+      <input type="number" id="playerInput" v-model="playerNumber" min="1" max="6">
+    </div>
 
     <button id="playButton" @click="playGame">Jogar!</button>
 
     <div id="result">
-      <p>Resultado: {{ result }}</p>
+      <p class="type">Resultado: {{ result }}</p>
       <p>{{ gameResult }}</p>
       <p v-if="gameResult === 'Você venceu!'">Número escolhido pela máquina: {{ machineNumber }}</p>
       <p v-if="errorMessage">{{ errorMessage }}</p>
@@ -31,12 +32,19 @@ export default {
     generateMachineNumber() {
       return Math.floor(Math.random() * 6) + 1;
     },
+    clearResult() {
+      this.result = '';
+      this.gameResult = '';
+      this.machineNumber = null;
+    },
     playGame() {
       if (this.playerNumber < 1 || this.playerNumber > 6) {
         this.errorMessage = 'Escolha um número entre 1 e 6.';
+        this.clearResult();
         return;
       }
 
+      this.errorMessage = '';
       this.machineNumber = this.generateMachineNumber();
       const total = this.playerNumber + this.machineNumber;
       const isEven = total % 2 === 0;
@@ -55,8 +63,6 @@ export default {
       } else {
         this.gameResult = 'Você perdeu!';
       }
-
-      this.errorMessage = '';
     }
   }
 }
