@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="PT-br">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml"  />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>impar ou par</title>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Jogo Ímpar ou Par</h1>
+
+    <label for="playerInput">Escolha um número:</label>
+    <input type="number" id="playerInput" v-model="playerNumber">
+
+    <button id="playButton" @click="playGame">Jogar!</button>
+
+    <div id="result">
+      <p>Resultado: {{ result }}</p>
+      <p>{{ gameResult }}</p>
+    </div>
+  </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
